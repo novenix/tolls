@@ -1,0 +1,48 @@
+@import "./shared/fonts";
+// pages
+@import "./index";
+// components
+@import "./header";
+// colores
+@import "./shared/colors";
+
+@import "./menu";
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  font-family: "TitilliumWeb" !important;
+}
+.self-typed {
+  font-size: 31px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  color: white;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.clickable {
+  cursor: pointer;
+}
+.base-page {
+  padding: 150px 0 50px 0;
+  color: black;
+  background-color: #ecedee;
+  min-height: 100vh;
+  .page-header {
+    .page-header-title {
+      font-weight: 700;
+      color: black;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+  }
+}
+.error {
+  font-weight: 700;
+  color: red;
+}

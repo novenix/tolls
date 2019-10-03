@@ -12,18 +12,25 @@ const recorrer3=(lista,peso)=>{
     const listaNueva=lista;   
     // for(x=0;x<tolls[actual].length;x++){
         for(const key in tolls[actual]){
-
+            console.log(tolls[actual],'tolls[actual]')
+            console.log(key,tolls[actual][key][0])
+            
+            console.log(lista.length,'len')
         if(lista.length<cruces){
-            if(!lista.includes(key[x][0])){
-                lista.push(key[x][0])
-                peso+=key[x][1]
+
+            if(!lista.includes(tolls[actual][key][0])){
+                lista.push(tolls[actual][key][0])
+                peso+=tolls[actual][key][1]
                 var ultimo=peso%10;
                 
                 d[ultimo.toString()]++; 
                 console.log(lista,'lista final',ultimo,'u',peso,'p')
-                recorrer2(lista,peso)
+                recorrer3(lista,peso)
+                lista.pop()
+                peso-=tolls[actual][key][1]
             }
         }
+       
         // else{
         //     var ultimo=peso%10;
         //     console.log(lista,'lista final')
@@ -49,6 +56,7 @@ const recorrer2=(lista,peso)=>{
                 d[ultimo.toString()]++; 
                 console.log(lista,'lista final',ultimo,'u',peso,'p')
                 recorrer2(lista,peso)
+                lista.pop()
             }
         }
         // else{

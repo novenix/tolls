@@ -102,6 +102,10 @@ const makeJunctions=(tollsDict,n)=>{
     cruces=n
     recorrer()
     console.log(d,'d')
+    const rta=d;
+    d={'0':0,'1':0,'2':0,'3':0,'4':0,'5':0,'6':0,'7':0,'8':0,'9':0}
+    console.log(d,rta)
+    return rta
     // crossTolls(cruceActual)
     // console.log(junctions)
     

@@ -5,14 +5,23 @@ const next = require('next')
 
 //const handle = routes.getRequestHandler(app)
 const bodyParser=require('body-parser');
+
+
+var cors = require('cors');
+
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = app.getRequestHandler()
 const tollsRoutes=require('./routes/tolls')
+
+
+
+
 app.prepare()
 .then(()=>{
     const server=express();
     server.use(bodyParser.json())
+    server.use(cors())
     /////////// endpoints/////////
     server.use('/readAndShowTolls',tollsRoutes)
     

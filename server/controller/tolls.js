@@ -2,7 +2,7 @@
 var junctions=require('./junctions')
 Data=require('../model/readTolls');
 
-
+var rtaFinal=[]
 const splitData=(req,res)=>{
     console.log(Data,'2')
     let pepe={}
@@ -28,16 +28,16 @@ const splitData=(req,res)=>{
 }
 Comparator=(a, b)=> {
     if (a[0] < b[0]){
-        // console.log('-1')
+        
         return -1;}
     if (a[0] > b[0]){
-        // console.log('1')
+        
         return 1;}
     return 0;
 }
 let tollsDict={}
 const createKey=(Toll,Pkey)=>{
-    // console.log(Pkey,'p_____________','3')
+    
     if(tollsDict[Pkey]!=undefined){
         tollsDict[Pkey].push(Toll.slice(1,3))
                
@@ -48,17 +48,7 @@ const createKey=(Toll,Pkey)=>{
         tollsDict[Pkey].push(Toll.slice(1,3))
         
     }
-    // if(tollsDict[Pkey]!=undefined){
-    //     tollsDict[Pkey].push(Toll.slice(1,3))
-               
-    //     tollsDict[Pkey].sort(Comparator)
-    // }
-    // else{
-    //     tollsDict[Pkey]=[]
-    //     tollsDict[Pkey].push(Toll.slice(1,3))
-        
-    // }
-    // console.log(tollsDict)
+   
 }
 const makeTolls=(data,Ncaminos,cruces)=>{
   
@@ -71,7 +61,7 @@ const makeTolls=(data,Ncaminos,cruces)=>{
             const Toll=data[x]
             Toll[0]=Toll[0].toString()
             Toll[1]=Toll[1].toString()
-            // console.log(Toll,'toll')
+            
             tolls.push(Toll)
             let Pkey=Toll[0]                      
             createKey(Toll,Pkey)          
@@ -83,17 +73,17 @@ const makeTolls=(data,Ncaminos,cruces)=>{
             Toll.pop();
             const reversedToll=Toll.reverse();
             reversedToll[0]=reversedToll[0].toString()
-            // console.log(reversedToll,'reversed')
             
             reversedToll.push(valorToll);
-            // console.log(reversedToll,reversedToll[0],'reversed hiper')
-            // stop
+          
             tolls.push(reversedToll)
             Pkey=reversedToll[0]
             createKey(reversedToll,Pkey)
             if(x-Ncaminos==posDescription){
                 // crear caminos
-                return 0;
+                const j=junctions.makeJunctions(tollsDict,cruces)
+                rtaFinal.push(j)
+                tollsDict={}
             }
         }
         
@@ -103,24 +93,22 @@ const makeTolls=(data,Ncaminos,cruces)=>{
             cruces=data[x][0]
             tollsDict={}
         }
-        // console.log(tollsDict,'?')
-        // continuar con programa
+       
 
     } 
     
 }
 
 const createTolls=(req,res)=>{
-    console.log(req.params,'params')
-    // let archivo= data(req.params)
+    
     const arreglo=splitData(req,res);
     let Ncaminos=arreglo[0][1];
     let cruces=arreglo[0][0]
     
     const Tolls=makeTolls(arreglo,Ncaminos,cruces);
-    console.log(tollsDict)
-    const j=junctions.makeJunctions(tollsDict,cruces)
-    return res.json(j)
+    console.log(rtaFinal,'final')
+   
+    return res.json(rtaFinal)
 }
 module.exports={
     splitData,
